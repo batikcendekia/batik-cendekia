@@ -5,7 +5,7 @@ class HeroSection extends HTMLElement {
 
   render() {
     this.innerHTML = `
-   <section id="hero">
+   <section id="hero" class="hero">
     <div class="container">
       <div class="row">
         <div class="col-lg-6"></div>
@@ -17,17 +17,12 @@ class HeroSection extends HTMLElement {
             <h2>Jaga Budaya & Harta Bangsa</h2>
             <h2 class="with-lines">Indonesia 2024</h2>
             <div class="text-center button-hero">
-              <a href="https://storage.googleapis.com/batikin-bucket/BatikIn.1.1.apk" target="_blank" class="btn-get-started scrollto">Download Apps</a>
+              <a href="https://storage.googleapis.com/batikin-bucket/BatikIn.1.1.apk" target="_blank" class="btn-get-started scrollto">Explore Now</a>
               &nbsp
-              <a href="https://app.batikin.site" target="_blank" class="btn-get-started scrollto">Try Web Version</a>
+              <a href="https://app.batikin.site" target="_blank" class="btn-get-started scrollto">Explore Event</a>
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 order-2 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
-          <!-- <div class="super img-fluid animated" >
-            <h1>keren</h1>
-          </div> -->
-        </div> -->
       </div>
     </div>
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none" style>

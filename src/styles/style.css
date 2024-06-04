@@ -13,6 +13,7 @@
   --template-font-grey: #90a3bf;
   --green: #9cd323;
   --font-latin: "Great Vibes", cursive;
+  --coklat: #DF8F68;
 }
 
 /* ---- .grid-item ---- */
@@ -39,7 +40,7 @@ hgroup {
 }
 
 a {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 h1,
@@ -86,58 +87,44 @@ body {
 /* navabar */
 nav{
   z-index: 9999;
+  top: 0;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
 }
-.navbar {
-  background-color: var(--white);
+
+.navbar.scrolled {
+  background-color: white;
 }
+
+.navbar.scrolled .nav-link {
+  color: black;
+}
+
+.navbar.scrolled .nav-link.active {
+  color: black;
+  border-bottom: 2px solid #DF8F68;
+}
+
 .navbar .navbar-collapse ul li a {
-  color: var(--nav-color);
   font-size: 18px;
   font-weight: 500;
   line-height: 27px;
   letter-spacing: -2%;
   padding-left: 30px;
   padding-right: 30px;
-  color: #000;
+  color: #fff;
 }
 
 .navbar .navbar-collapse ul li a.active{
-    border-bottom: 2px solid #7C5CFC;
+  border-bottom: 2px solid #DF8F68;
+  color: #fff;
 }
 
 .nav-logo{
   width: 160px;
 }
 
-.gradient-button a {
-  display: inline-block !important;
-  padding: 10px 20px !important;
-  color: var(--white) !important;
-  text-transform: capitalize;
-  font-size: 15px;
-  background: var(--purple);
-  border-radius: 23px;
-  font-weight: 500 !important;
-  letter-spacing: 0.3px !important;
-  /* transition: all 0.5s; */
-  margin-left: 10px;
-}
-
-.gradient-button a:hover {
-  color: var(--purple) !important;
-  background: transparent;
-  border: 2px solid var(--purple);
-}
-
 @media (max-width: 768px) {
-    .gradient-button a{
-        align-content: center;
-        width: 100%;
-        text-align: center;
-        margin: auto 2px;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
     .navbar .navbar-collapse ul li a {
         padding-top: 2rem;
       }
@@ -147,10 +134,23 @@ nav{
 /* hero  */
 #hero {
   width: 100%;
-  background: url("../public/img/bg-batik.svg");
+  background-image: url("../public/img/bg-batik.svg");
   background-size: cover;
+  background-repeat: no-repeat;
+  padding: 180px 0 0 0;
   position: relative;
-  padding: 120px 0 0 0;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Menggelapkan warna background dengan transparansi */
+  z-index: 1; /* Pastikan lapisan ini di atas gambar */
 }
 
 .hero-content{
@@ -159,6 +159,8 @@ nav{
   align-items: center;
   justify-items: center;
   margin-top: -50px;
+  position: relative;
+  z-index: 2;
 }
 
 #hero h1,
@@ -214,19 +216,20 @@ nav{
 
 #hero .btn-get-started {
   font-family: "Montserrat", sans-serif;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 16px;
   letter-spacing: 1px;
   display: inline-block;
   padding: 10px 30px;
   border-radius: 50px;
-  transition: 0.5s;
-  background: #fff;
-  color: #489465;
+  background: #8b5539;
+  color: #fff;
+  transition: background 0.5s ease, border 0.5s ease, color 0.5s ease;
 }
 
 #hero .btn-get-started:hover {
-  background: #185C64;
+  background: #543221;
+  border: 1px solid #fff;
   color: #FFFFFF;
 }
 
