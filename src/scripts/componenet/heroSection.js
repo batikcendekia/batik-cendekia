@@ -5,34 +5,47 @@ class HeroSection extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <section class="main-banner" data-aos="fade-down" data-aos-duration="1000" id="top" style="overflow-x: hidden !important">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="row">
-                <div class="col-lg-12 align-self-center">
-                  <div class="left-content show-up header-text">
-                    <div class="row text-center">
-                      <div class="col-lg-12 hero-content">
-                        <h1>Transformasikan Bisnis Anda ke Era Digital</h1>
-                        <p>Solusi Terpercaya untuk Pembuatan Website yang Menarik dan Efektif <br />Pastinya, Konversi Optimal dari Iklan yang Kami Perbaiki</p>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="hero-button first-button">
-                          <a href="#feacture">Mulai Sekarang</a>
-                        </div>
-                        <div class="hero-button">
-                          <a href="#pricing" style="background-color: #1a202c">Lihat Harga</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+   <section id="hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6 d-flex">
+          <div data-aos="zoom-out" class="animated hero-content">
+            <h3>Selamat Datang</h3>
+            <h1>Batik Cendikia</h1>
+            <img class="hero-img" src="img/ornamen-garis.png" alt="">
+            <h2>Jaga Budaya & Harta Bangsa</h2>
+            <h2 class="with-lines">Indonesia 2024</h2>
+            <div class="text-center button-hero">
+              <a href="https://storage.googleapis.com/batikin-bucket/BatikIn.1.1.apk" target="_blank" class="btn-get-started scrollto">Download Apps</a>
+              &nbsp
+              <a href="https://app.batikin.site" target="_blank" class="btn-get-started scrollto">Try Web Version</a>
             </div>
           </div>
         </div>
-      </section>
+        <!-- <div class="col-lg-4 order-2 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
+          <!-- <div class="super img-fluid animated" >
+            <h1>keren</h1>
+          </div> -->
+        </div> -->
+      </div>
+    </div>
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none" style>
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+  </section>
+      
     `;
   }
 }
