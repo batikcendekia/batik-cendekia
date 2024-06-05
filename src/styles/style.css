@@ -1,6 +1,7 @@
 /* globals */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
 
 :root {
   --nav-color: #0d121fbf;
@@ -13,6 +14,7 @@
   --template-font-grey: #90a3bf;
   --green: #9cd323;
   --font-latin: "Great Vibes", cursive;
+  --font-italiana:"Italiana", sans-serif;
   --coklat: #DF8F68;
 }
 
@@ -365,6 +367,118 @@ nav{
 
 /* end media querry */
 
+/* about batik  */
+.about-batik{
+  margin-top: 5rem;
+}
+/* end about batik  */
+
+/* batik gallery */
+.content-title h1 {
+  font-family: var(--font-italiana);
+  text-align: center;
+  font-size: 64px;
+  font-weight: 400;
+}
+
+gallery-batik{
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.container-batik {
+  width: 350px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.129);
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+
+.batik-img {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+}
+.batik-img::before{
+  content: "";
+    position: absolute;
+    bottom: 0px;
+    z-index: 5;
+    left: 0;
+    border-right: 180px solid transparent;
+    border-bottom: 40px solid white;
+}
+.batik-img::after{
+  content: "";
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    z-index: 5;
+    border-left: 180px solid transparent;
+    border-bottom: 40px solid white;
+}
+.batik-img img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.main-batik {
+  text-align: center;
+  margin-top: 10px;
+  line-height: 18px;
+  padding: 10px 15px;
+}
+.main-batik > b {
+  font-size: 20px;
+  color: rgb(94, 94, 94);
+}
+.batik-daerah{
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(94, 94, 94);
+}
+
+.main-batik > p {
+  color: rgb(94, 94, 94);
+  font-size: 13px;
+  line-height: 24px;
+  margin-top: 5px;
+  height: 100px;
+  overflow: scroll;
+}
+
+.batik-daerah > div svg {
+  width: 30px;
+  height: 20px;
+  color: red;
+}
+
+.line-resto,
+.line-resto2 {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  top: -28px;
+}
+
+.line-resto2{
+  top: 30px;
+  z-index: 999;
+}
+
+/* end batik gallery */
+
 
 /* workshop  */
 .card-paket {
@@ -499,3 +613,16 @@ nav{
   color: #fff;
 }
 /* end workshop  */
+
+/* loader  */
+.se-pre-con {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background: url(../public/img/preloader2.gif) center no-repeat #ffffff;
+  text-align: center;
+}
+/* end loader  */

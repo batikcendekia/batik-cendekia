@@ -1,6 +1,7 @@
 const Details = {
   async render() {
     return `
+    <hero-section></hero-section>
     <section>
       <div class="container">
         <div class="row">

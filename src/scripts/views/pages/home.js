@@ -1,17 +1,13 @@
 import '../../componenet/heroSection';
+import '../../componenet/listGallery';
+import fetchDataAndDisplay from '../../index';
 
 const Home = {
   async render() {
     return `
     <hero-section></hero-section>
-    <section id="thecontent">
+    <section id="thecontent" class="about-batik">
         <div class="container">
-          <div class="row">
-            <div class="col">
-              <h1>Darimana asal muasal batik?</h1>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto at dolores nostrum vel repellendus sunt reprehenderit consectetur in voluptas officiis, necessitatibus doloremque? Perferendis enim distinctio ducimus obcaecati earum quidem cupiditate.</p>
-            </div>
-          </div>
           <div class="row">
             <div class="col-6">
               <h1>Dari mana asal muasal batik?</h1>
@@ -23,10 +19,23 @@ const Home = {
           </div>
         </div>
       </section>
+      <section>
+        <div class="container mt-lg-5">
+          <div class="row">
+            <div class="content-title">
+              <h1>Batik Gallery</h1>
+            </div>
+          </div>
+          <div class="row">
+          <gallery-batik></gallery-batik>
+          </div>
+        </div>
+      </section>
     `;
   },
   async afterRender() {
-    // Fungsi ini akan dipanggil setelah render()
+    // Panggil fetchDataAndDisplay setelah render selesai
+    await fetchDataAndDisplay();
   },
 };
 
