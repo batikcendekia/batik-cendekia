@@ -1,6 +1,7 @@
 import '../../componenet/heroSection';
 import '../../componenet/listGallery';
-import fetchDataAndDisplay from '../../index';
+import '../../componenet/modalBatik';
+import fetchDataAndDisplay from '../../api/config';
 
 const Home = {
   async render() {
@@ -26,11 +27,21 @@ const Home = {
               <h1>Batik Gallery</h1>
             </div>
           </div>
+        </div>
+        <div class="container mt-lg-5">
+          <div class="row text-center align-items-center justify-content-center">
+            <gallery-batik></gallery-batik>
+          </div>
+        </div>
+        <div class="container">
           <div class="row">
-          <gallery-batik></gallery-batik>
+            <div class="col">
+              <a href="#/detail"><button class="btn btn-primary">Hallo guys</button></a>
+            </div>
           </div>
         </div>
       </section>
+      <modal-hero></modal-hero>
     `;
   },
   async afterRender() {

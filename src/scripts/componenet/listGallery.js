@@ -15,7 +15,7 @@ class listGallery extends HTMLElement {
              <img src="${this._gallery.image}" alt="batik-img" />
           </div>
           <div class="main-batik">
-              <strong tabindex="0">${this._gallery.nama_batik}</strong>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><strong tabindex="0">${this._gallery.nama_batik}</strong></button>
               <div class="batik-daerah">
                 <p tabindex="0">${this._gallery.daerah}</p>
               </div>
