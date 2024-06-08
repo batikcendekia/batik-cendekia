@@ -33,10 +33,10 @@ const Home = {
             <gallery-batik></gallery-batik>
           </div>
         </div>
-        <div class="container">
+        <div class="container mb-lg-5">
           <div class="row">
-            <div class="col">
-              <a href="#/detail"><button class="btn btn-primary">Hallo guys</button></a>
+            <div class="col ">
+              <center><a href="#/detail"><button class="btn btn-danger">Hallo guys</button></a></center>
             </div>
           </div>
         </div>

@@ -18,13 +18,6 @@ const Details = {
             <gallery-batik></gallery-batik>
           </div>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <a href=""><button class="btn btn-primary">Hallo guys</button></a>
-            </div>
-          </div>
-        </div>
       </section>
     `;
   },

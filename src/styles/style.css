@@ -624,7 +624,7 @@ nav{
 
 .modal {
   border-radius: 7px;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: transparent;
   font-family: "Poppins", sans-serif;
 }
@@ -638,7 +638,7 @@ nav{
 }
 .modal .modal-content .modal-body {
   border-radius: 7px;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: #fff;
   padding-left: 0px;
   padding-right: 0px;
@@ -727,4 +727,96 @@ nav{
   color: #555;
   font-weight: 900 !important;
 }
+
+.btn-close {
+  background-color: white;
+  border: none;
+  opacity: 1;
+}
+
+.btn-close:hover,
+.btn-close:focus {
+  background-color: white;
+  opacity: 0.8;
+}
+
 /* end modal batik  */
+
+/* why batik  */
+.fizo-icon-box.layout-5 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.fizo-icon-box.layout-5 .icon {
+  margin: 20px auto;
+  background-color: var(--coklat);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+.fizo-icon-box.layout-5 .icon img {
+  width: cover;
+  height: auto;
+  top: 50%;
+  display: block;
+  margin: auto;
+  position: relative;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.fizo-icon-box.layout-5 h3 {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 25px auto 27px auto;
+}
+.fizo-icon-box.layout-5 h3 a {
+  color: #000;
+  display: block;
+}
+.fizo-icon-box.layout-5:hover .icon {
+  background-color: #f9dc93;
+}
+.fizo-icon-box.layout-5:hover h3 a {
+  color: var(--coklat);
+}
+/* end why batik  */
+
+/* class batik  */
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/* end class batik  */

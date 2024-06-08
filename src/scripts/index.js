@@ -1,5 +1,5 @@
 import 'regenerator-runtime';
-import './componenet/listGallery';
+// import './componenet/listGallery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import '../styles/style.css';
