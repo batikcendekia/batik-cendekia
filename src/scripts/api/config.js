@@ -44,7 +44,7 @@ async function fetchDataAll() {
 
     const batik = data.batik;
     const galleryContainer = document.createElement('div');
-    galleryContainer.className = 'row';
+    galleryContainer.className = 'rowoaoa';
 
     batik.forEach((gallery) => {
       const listBatik = document.createElement('list-gallery');

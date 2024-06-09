@@ -135,13 +135,13 @@ nav{
 
 /* hero  */
 #hero {
-  width: 100%;
   background-image: url("../public/img/bg-batik.svg");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 180px 0 0 0;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 #hero::before {
@@ -381,15 +381,15 @@ nav{
   font-weight: 400;
 }
 
-/* gallery-batik{
+gallery-batik{
   list-style-type: none;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
   margin-top: 50px;
-} */
-
+}
 
 .batik-img {
   position: relative;
