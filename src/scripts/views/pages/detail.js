@@ -1,4 +1,6 @@
 import '../../componenet/heroSection';
+import '../../componenet/listGallery';
+import '../../componenet/modalBatik';
 import { fetchDataAll } from '../../api/config';
 
 const Details = {
@@ -19,6 +21,7 @@ const Details = {
           </div>
         </div>
       </section>
+      <modal-hero></modal-hero>
     `;
   },
   async afterRender() {

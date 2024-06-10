@@ -156,6 +156,7 @@ nav{
 }
 
 .hero-content{
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -247,40 +248,6 @@ nav{
   width: 150%;
 }
 
-@media (min-width: 1024px) {
-  #hero {
-    background-attachment: fixed;
-  }
-}
-
-@media (max-width: 991px) {
-  #hero {
-    padding-top: 80px;
-  }
-
-  #hero .animated {
-    animation: none;
-  }
-
-  #hero h1 {
-    font-size: 28px;
-    line-height: 32px;
-    margin-bottom: 10px;
-  }
-
-  #hero h2 {
-    font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 575px) {
-  #hero .hero-img {
-    width: 80%;
-  }
-}
-
 @keyframes up-down {
   0% {
     transform: translateY(10px);
@@ -345,28 +312,6 @@ nav{
   }
 }
 
-/* media querry */
-@media (max-width: 768px) {
-  .main-banner {
-    padding: 150px 20px 100px 20px;
-  }
-  /* .hero-content{
-    margin-top: 2rem;
-  } */
-
-  .main-banner .left-content h1 {
-    font-size: 36px;
-    line-height: 56px;
-  }
-
-  .main-banner .left-content p {
-    font-size: 18px;
-    line-height: 28px;
-  }
-}
-
-/* end media querry */
-
 /* about batik  */
 .about-batik{
   margin-top: 5rem;
@@ -381,14 +326,22 @@ nav{
   font-weight: 400;
 }
 
-gallery-batik{
+gallery-batik {
   list-style-type: none;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   gap: 40px;
-  justify-content: center;
+  justify-items: center;
   margin-top: 50px;
+}
+
+.container-batik {
+  width: 100%;
+  max-width: 350px; /* Ensure the container does not exceed 350px */
+  border-radius: 10px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.129);
+  padding-bottom: 20px;
+  overflow: hidden;
 }
 
 .batik-img {
@@ -397,23 +350,23 @@ gallery-batik{
   width: 100%;
   height: 200px;
 }
-.batik-img::before{
+.batik-img::before {
   content: "";
-    position: absolute;
-    bottom: 0px;
-    z-index: 5;
-    left: 0;
-    border-right: 180px solid transparent;
-    border-bottom: 40px solid white;
+  position: absolute;
+  bottom: 0px;
+  z-index: 5;
+  left: 0;
+  border-right: 180px solid transparent;
+  border-bottom: 40px solid white;
 }
-.batik-img::after{
+.batik-img::after {
   content: "";
-    position: absolute;
-    bottom: 0px;
-    right: 0;
-    z-index: 5;
-    border-left: 180px solid transparent;
-    border-bottom: 40px solid white;
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  z-index: 5;
+  border-left: 180px solid transparent;
+  border-bottom: 40px solid white;
 }
 .batik-img img {
   width: 100%;
@@ -432,7 +385,7 @@ gallery-batik{
   font-size: 20px;
   color: rgb(94, 94, 94);
 }
-.batik-daerah{
+.batik-daerah {
   display: flex;
   justify-content: center;
   gap: 7px;
@@ -456,19 +409,6 @@ gallery-batik{
   color: red;
 }
 
-.line-resto,
-.line-resto2 {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 35px;
-  top: -28px;
-}
-
-.line-resto2{
-  top: 30px;
-  z-index: 999;
-}
 
 /* end batik gallery */
 

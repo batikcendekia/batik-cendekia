@@ -3,3 +3,55 @@
     width: 0;
   }
 }
+
+@media (max-width: 640px) {
+  #hero{
+    padding-top: 2rem;
+  }
+  #hero h3{
+    font-size: 30px;
+  }
+  #hero h1{
+    font-size: 60px;
+    line-height: 40px;
+  }
+  #hero .hero-img {
+    top: 0;
+    margin-top: -5.8rem;
+    margin-bottom: -4rem;
+  }
+  #hero .hero-waves{
+    margin-top: 70px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-banner {
+    padding: 150px 20px 100px 20px;
+  }
+  .hero-content{
+    margin-top: 2rem;
+  }
+
+  .main-banner .left-content h1 {
+    font-size: 36px;
+    line-height: 56px;
+  }
+
+  .main-banner .left-content p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  #why-batik{
+    margin-top: 2rem;
+  }
+}
+
+

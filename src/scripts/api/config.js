@@ -16,7 +16,7 @@ async function fetchDataAndDisplay() {
       listBatik.batik1 = gallery;
 
       const colDiv = document.createElement('div');
-      colDiv.className = 'col-4';
+      colDiv.className = 'col-12 col-sm-6 col-md-4 d-flex justify-content-center pb-5 '; // Updated class for responsive columns
       colDiv.appendChild(listBatik);
 
       galleryContainer.appendChild(colDiv);
@@ -44,7 +44,7 @@ async function fetchDataAll() {
 
     const batik = data.batik;
     const galleryContainer = document.createElement('div');
-    galleryContainer.className = 'rowoaoa';
+    galleryContainer.className = 'row';
 
     batik.forEach((gallery) => {
       const listBatik = document.createElement('list-gallery');
@@ -67,7 +67,6 @@ async function fetchDataAll() {
     console.error('Error fetching data:', error);
   }
 }
-
 
 export default fetchDataAndDisplay;
 export { fetchDataAll };

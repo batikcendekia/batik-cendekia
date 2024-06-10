@@ -5,7 +5,7 @@ class whyBatik extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <section class="mt-lg-5">
+      <section class="mt-lg-5" id="why-batik">
         <div class="container text-center mb-5">
           <div class="row">
             <h1>Kenapa Belajar Batik</h1>
