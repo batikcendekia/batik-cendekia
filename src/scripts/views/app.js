@@ -7,11 +7,21 @@ function setActiveNavLink(url) {
     link.classList.remove('active');
   });
 
-  const activeLink = document.querySelector(`.nav-link[href="#${url}"]`);
+  const adjustedUrl = url === '/' ? '#/home' : `#${url}`;
+  const activeLink = document.querySelector(`.nav-link[href="${adjustedUrl}"]`);
   if (activeLink) {
     activeLink.classList.add('active');
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const currentHash = window.location.hash || '/';
+  setActiveNavLink(currentHash.substring(1));
+});
+
+window.addEventListener('hashchange', () => {
+  setActiveNavLink(window.location.hash.substring(1));
+});
 
 class App {
   constructor(content) {

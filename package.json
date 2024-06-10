@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "idb": "^8.0.0",
+    "jquery": "^3.7.1",
     "regenerator-runtime": "^0.14.0",
     "workbox-window": "^7.0.0"
   }

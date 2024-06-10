@@ -135,13 +135,13 @@ nav{
 
 /* hero  */
 #hero {
-  width: 100%;
   background-image: url("../public/img/bg-batik.svg");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 180px 0 0 0;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 #hero::before {
@@ -156,6 +156,7 @@ nav{
 }
 
 .hero-content{
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -247,40 +248,6 @@ nav{
   width: 150%;
 }
 
-@media (min-width: 1024px) {
-  #hero {
-    background-attachment: fixed;
-  }
-}
-
-@media (max-width: 991px) {
-  #hero {
-    padding-top: 80px;
-  }
-
-  #hero .animated {
-    animation: none;
-  }
-
-  #hero h1 {
-    font-size: 28px;
-    line-height: 32px;
-    margin-bottom: 10px;
-  }
-
-  #hero h2 {
-    font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 575px) {
-  #hero .hero-img {
-    width: 80%;
-  }
-}
-
 @keyframes up-down {
   0% {
     transform: translateY(10px);
@@ -345,28 +312,6 @@ nav{
   }
 }
 
-/* media querry */
-@media (max-width: 768px) {
-  .main-banner {
-    padding: 150px 20px 100px 20px;
-  }
-  /* .hero-content{
-    margin-top: 2rem;
-  } */
-
-  .main-banner .left-content h1 {
-    font-size: 36px;
-    line-height: 56px;
-  }
-
-  .main-banner .left-content p {
-    font-size: 18px;
-    line-height: 28px;
-  }
-}
-
-/* end media querry */
-
 /* about batik  */
 .about-batik{
   margin-top: 5rem;
@@ -381,17 +326,18 @@ nav{
   font-weight: 400;
 }
 
-gallery-batik{
+gallery-batik {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  justify-content: center;
+  justify-items: center;
   margin-top: 50px;
 }
 
 .container-batik {
-  width: 350px;
+  width: 100%;
+  max-width: 350px; /* Ensure the container does not exceed 350px */
   border-radius: 10px;
   box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.129);
   padding-bottom: 20px;
@@ -404,23 +350,23 @@ gallery-batik{
   width: 100%;
   height: 200px;
 }
-.batik-img::before{
+.batik-img::before {
   content: "";
-    position: absolute;
-    bottom: 0px;
-    z-index: 5;
-    left: 0;
-    border-right: 180px solid transparent;
-    border-bottom: 40px solid white;
+  position: absolute;
+  bottom: 0px;
+  z-index: 5;
+  left: 0;
+  border-right: 180px solid transparent;
+  border-bottom: 40px solid white;
 }
-.batik-img::after{
+.batik-img::after {
   content: "";
-    position: absolute;
-    bottom: 0px;
-    right: 0;
-    z-index: 5;
-    border-left: 180px solid transparent;
-    border-bottom: 40px solid white;
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  z-index: 5;
+  border-left: 180px solid transparent;
+  border-bottom: 40px solid white;
 }
 .batik-img img {
   width: 100%;
@@ -439,7 +385,7 @@ gallery-batik{
   font-size: 20px;
   color: rgb(94, 94, 94);
 }
-.batik-daerah{
+.batik-daerah {
   display: flex;
   justify-content: center;
   gap: 7px;
@@ -463,19 +409,6 @@ gallery-batik{
   color: red;
 }
 
-.line-resto,
-.line-resto2 {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 35px;
-  top: -28px;
-}
-
-.line-resto2{
-  top: 30px;
-  z-index: 999;
-}
 
 /* end batik gallery */
 
@@ -626,3 +559,204 @@ gallery-batik{
   text-align: center;
 }
 /* end loader  */
+
+/* modal batik  */
+
+.modal {
+  border-radius: 7px;
+  /* overflow: hidden; */
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+.modal .logo a img {
+  width: 30px;
+}
+.modal .modal-content {
+  background-color: transparent;
+  border: none;
+  border-radius: 7px;
+}
+.modal .modal-content .modal-body {
+  border-radius: 7px;
+  /* overflow: hidden; */
+  background-color: #fff;
+  padding-left: 0px;
+  padding-right: 0px;
+  -webkit-box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.9);
+}
+.modal .modal-content .modal-body h2 {
+  font-size: 18px;
+}
+.modal .modal-content .modal-body p {
+  color: #777;
+  font-size: 14px;
+}
+.modal .modal-content .modal-body h3 {
+  font-weight: 900;
+  color: #000;
+  font-size: 22px;
+}
+.modal .modal-content .modal-body .close-btn {
+  color: #000;
+}
+.modal .modal-content .modal-body .promo-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+}
+.modal .cancel {
+  color: gray;
+  font-size: 14px;
+}
+.modal .btn-primary {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.form-control {
+  border: transparent;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.form-control:active,
+.form-control:focus,
+.form-control:hover {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  border-radius: 4px;
+  border: none;
+}
+.btn:active,
+.btn:focus {
+  outline: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.custom-select {
+  border: none;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+.custom-select:active,
+.custom-select:focus,
+.custom-select:hover {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.bg-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.logo img {
+  width: 70px;
+}
+
+.custom-note {
+  color: #999;
+}
+.custom-note a {
+  color: #555;
+  font-weight: 900 !important;
+}
+
+.btn-close {
+  background-color: white;
+  border: none;
+  opacity: 1;
+}
+
+.btn-close:hover,
+.btn-close:focus {
+  background-color: white;
+  opacity: 0.8;
+}
+
+/* end modal batik  */
+
+/* why batik  */
+.fizo-icon-box.layout-5 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.fizo-icon-box.layout-5 .icon {
+  margin: 20px auto;
+  background-color: var(--coklat);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+.fizo-icon-box.layout-5 .icon img {
+  width: cover;
+  height: auto;
+  top: 50%;
+  display: block;
+  margin: auto;
+  position: relative;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.fizo-icon-box.layout-5 h3 {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 25px auto 27px auto;
+}
+.fizo-icon-box.layout-5 h3 a {
+  color: #000;
+  display: block;
+}
+.fizo-icon-box.layout-5:hover .icon {
+  background-color: #f9dc93;
+}
+.fizo-icon-box.layout-5:hover h3 a {
+  color: var(--coklat);
+}
+/* end why batik  */
+
+/* class batik  */
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/* end class batik  */
