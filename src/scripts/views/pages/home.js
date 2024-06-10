@@ -12,7 +12,7 @@ const Home = {
             <div class="row">
               <div class="col-12 col-md-6">
                 <h1>Dari mana asal muasal batik?</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, doloremque odio! Illo libero vel numquam saepe quibusdam sed explicabo sequi, officia nesciunt cum alias eius? Fugiat suscipit error ipsam nemo! Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum similique impedit minus tempora, nemo iure voluptas excepturi quod possimus, dolorem veritatis ipsam nihil aperiam fugit eveniet repellat sint, architecto vitae.</p>
+                <p>Batik adalah seni tradisional Indonesia yang berkembang pesat pada masa Kerajaan Majapahit dan penyebaran Islam di Jawa. Seni ini berkembang lebih lanjut pada masa Kesultanan Mataram, Kasunanan Surakarta, dan Kesultanan Yogyakarta. Bukti tertua batik berasal dari Ponorogo, yang kemudian menyebar ke Jawa Tengah. Teknik batik dikenal lebih dari 1.000 tahun, kemungkinan berasal dari Mesir kuno atau Sumeria, dan meluas di Afrika Barat serta Asia. Pada 2009, UNESCO mengakui batik sebagai Warisan Budaya Takbenda Kemanusiaan.</p>
               </div>
               <div class="col-12 col-md-6">
                 <img src="img/batik.jpg" alt="">
