@@ -52,6 +52,81 @@
   #why-batik{
     margin-top: 2rem;
   }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      transform: translateX(-100%);
+      z-index: 1000;
+      width: 100%;
+      overflow-y: auto;
+    }
+  
+    .sidebar.active {
+      transform: translateX(0);
+    }
+  
+    .hamburger-btn {
+      display: block;
+    }
+  
+    .main-content {
+      padding-top: 60px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  
+    .sidebar nav ul {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+  
+    .sidebar nav ul li {
+      margin: 5px 0;
+    }
+  
+    .sidebar nav ul li a {
+      padding: 15px;
+      width: 100%;
+      text-align: left;
+    }
+  
+    .sidebar nav ul .submenu a {
+      padding-left: 30px;
+    }
 }
 
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  #logout-btn {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .header-left {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hamburger-btn {
+    margin: 10px 0;
+  }
+
+  .sidebar nav ul li a {
+    text-align: left;
+    padding-left: 15px;
+  }
+
+  .sidebar nav ul .submenu a {
+    padding-left: 30px;
+  }
+}
