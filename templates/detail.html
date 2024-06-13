@@ -1,0 +1,143 @@
+{% extends "base.html" %} {% block content %}
+<section>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="content-title">
+        <h1>Batik Gallery</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row mb-3">
+      <div class="col-md-6 offset-md-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by name or region" />
+      </div>
+    </div>
+    <div class="row text-center align-items-center justify-items-center" id="gallery-batik"></div>
+  </div>
+</section>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index: 9999999">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-header bg-dark text-bg-dark">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">nama batik</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-0" style="margin-top: -5px">
+        <div class="d-block main-content">
+          <img src="" alt="Image" class="img-fluid" id="batik-img" />
+          <div class="content-text p-4">
+            <h3 class="mb-4" id="batik-daerah">Kota Asal</h3>
+            <p class="mb-4" id="batik-makna">All their equipment and instruments are alive. The sky was this is cloudless and of a deep dark blue. A shining crescent far beneath the flying vessel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+  $(document).ready(function () {
+    let originalGallery = []; // Menyimpan konten galeri asli sebelum pencarian
+
+    // Ambil data batik dan isi galeri
+    fetch("all/api/batik")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data diterima:", data);
+        if (!Array.isArray(data)) {
+          throw new Error("Seharusnya sebuah array tetapi mendapat: " + JSON.stringify(data));
+        }
+        const galleryContainer = $("#gallery-batik");
+        originalGallery = data; // Menyimpan data asli ke dalam variabel
+        data.forEach((gallery) => {
+          const listBatik = `
+            <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center pb-5">
+              <div class="container-batik">
+                <div class="batik-img">
+                    <img src="${gallery.image}" data-src="${gallery.image}" loading="lazy" alt="batik-img" />
+                </div>
+                <div class="main-batik">
+                    <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-id="${gallery.id}">
+                        <strong tabindex="0">${gallery.nama_batik}</strong>
+                    </button>
+                    <div class="batik-daerah">
+                        <p tabindex="0">${gallery.daerah}</p>
+                    </div>
+                    <p tabindex="0">${gallery.makna}</p>
+                </div>
+              </div>
+            </div>
+          `;
+          galleryContainer.append(listBatik);
+        });
+      })
+      .catch((error) => console.error("Error mengambil data:", error));
+
+    // Tampilkan detail dalam modal ketika sebuah batik diklik
+    $(document).on("click", ".show-details", function () {
+      const batikId = $(this).data("id");
+      console.log("ID batik yang diklik:", batikId);
+      // Mengasumsikan Anda memiliki endpoint API lain untuk mengambil detail batik individual
+      fetch(`/api/batik/${batikId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Detail Batik:", data);
+          // Perbarui konten modal dengan data yang diambil
+          $("#exampleModalCenter .modal-title").text(data.nama_batik);
+          $("#exampleModalCenter #batik-img").attr("src", data.image);
+          $("#exampleModalCenter #batik-daerah").text(data.daerah);
+          $("#exampleModalCenter #batik-makna").text(data.makna);
+        })
+        .catch((error) => console.error("Error mengambil detail batik:", error));
+    });
+
+    // Tambahkan event listener untuk input pencarian
+    $("#searchInput").on("input", function () {
+      const searchTerm = $(this).val().toLowerCase();
+      const filteredGallery = originalGallery.filter((gallery) => {
+        const batikName = gallery.nama_batik.toLowerCase();
+        const batikRegion = gallery.daerah.toLowerCase();
+        return batikName.includes(searchTerm) || batikRegion.includes(searchTerm);
+      });
+
+      const galleryContainer = $("#gallery-batik");
+      galleryContainer.empty();
+
+      if (filteredGallery.length === 0) {
+        const noFoundImage = `
+          <div class="col-12 text-center">
+            <img src="../static/img/no_data.gif" alt="No Results Found" style="width: 30%;"/>
+            <p>No results found</p>
+          </div>
+        `;
+        galleryContainer.append(noFoundImage);
+      }
+
+      // Tambahkan konten yang sesuai dengan hasil pencarian
+      filteredGallery.forEach((gallery) => {
+        const listBatik = `
+          <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center pb-5">
+            <div class="container-batik">
+              <div class="batik-img">
+                  <img src="${gallery.image}" data-src="${gallery.image}" loading="lazy" alt="batik-img" />
+              </div>
+              <div class="main-batik">
+                  <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-id="${gallery.id}">
+                      <strong tabindex="0">${gallery.nama_batik}</strong>
+                  </button>
+                  <div class="batik-daerah">
+                      <p tabindex="0">${gallery.daerah}</p>
+                  </div>
+                  <p tabindex="0">${gallery.makna}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        galleryContainer.append(listBatik);
+      });
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+  {% extends base_template %} {% block content %}
+      <section id="thecontent" class="about-batik">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <h1>Dari mana asal muasal batik?</h1>
+              <p>
+                Batik adalah seni tradisional Indonesia yang berkembang pesat pada masa Kerajaan Majapahit dan penyebaran Islam di Jawa. Seni ini berkembang lebih lanjut pada masa Kesultanan Mataram, Kasunanan Surakarta, dan Kesultanan
+                Yogyakarta. Bukti tertua batik berasal dari Ponorogo, yang kemudian menyebar ke Jawa Tengah. Teknik batik dikenal lebih dari 1.000 tahun, kemungkinan berasal dari Mesir kuno atau Sumeria, dan meluas di Afrika Barat serta Asia.
+                Pada 2009, UNESCO mengakui batik sebagai Warisan Budaya Takbenda Kemanusiaan.
+              </p>
+            </div>
+            <div class="col-12 col-md-6">
+              <img src="{{ url_for('static', filename='img/batik.jpg') }}" alt="Batik Image" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container mt-5">
+          <div class="row">
+            <div class="content-title">
+              <h1>Batik Gallery</h1>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-5">
+          <div class="row text-center align-items-center justify-items-center" id="gallery-batik">
+          </div>
+        </div>
+        <div class="container mb-5">
+          <div class="row">
+            <div class="col text-center">
+              <a href="{{url_for('detail')}}"><button class="btn btn-danger">Hallo guys</button></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index: 9999999;">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark text-bg-dark">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">nama batik</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0" style="margin-top:-5px;">
+              <div class="d-block main-content">
+                <img src="" alt="Image" class="img-fluid" id="batik-img"/>
+                <div class="content-text p-4">
+                  <h3 class="mb-4" id="batik-daerah">Kota Asal</h3>
+                  <p class="mb-4" id="batik-makna">All their equipment and instruments are alive. The sky was this is cloudless and of a deep dark blue. A shining crescent far beneath the flying vessel.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
+      {% block script %}
+      <script>
+        $(document).ready(function () {
+      // Ambil data batik dan isi galeri
+      fetch("/api/batik")
+          .then((response) => response.json())
+          .then((data) => {
+              console.log("Data diterima:", data);
+              if (!Array.isArray(data)) {
+                  throw new Error("Seharusnya sebuah array tetapi mendapat: " + JSON.stringify(data));
+              }
+              const galleryContainer = $("#gallery-batik");
+              data.forEach((gallery) => {
+                  const listBatik = `
+                      <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center pb-5">
+                          <div class="container-batik">
+                              <div class="batik-img">
+                                  <img src="${gallery.image}" alt="batik-img" />
+                              </div>
+                              <div class="main-batik">
+                                  <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-id="${gallery.id}">
+                                      <strong tabindex="0">${gallery.nama_batik}</strong>
+                                  </button>
+                                  <div class="batik-daerah">
+                                      <p tabindex="0">${gallery.daerah}</p>
+                                  </div>
+                                  <p tabindex="0">${gallery.makna}</p>
+                              </div>
+                          </div>
+                      </div>
+                  `;
+                  galleryContainer.append(listBatik);
+              });
+          })
+          .catch((error) => console.error("Error mengambil data:", error));
+
+      // Tampilkan detail dalam modal ketika sebuah batik diklik
+      $(document).on("click", ".show-details", function () {
+          const batikId = $(this).data("id");
+          console.log("ID batik yang diklik:", batikId);
+          // Mengasumsikan Anda memiliki endpoint API lain untuk mengambil detail batik individual
+          fetch(`/api/batik/${batikId}`)
+              .then((response) => response.json())
+              .then((data) => {
+                  console.log("Detail Batik:", data);
+                  // Perbarui konten modal dengan data yang diambil
+                  $("#exampleModalCenter .modal-title").text(data.nama_batik);
+                  $("#exampleModalCenter #batik-img").attr("src", data.image);
+                  $("#exampleModalCenter #batik-daerah").text(data.daerah);
+                  $("#exampleModalCenter #batik-makna").text(data.makna);
+              })
+              .catch((error) => console.error("Error mengambil detail batik:", error));
+      });
+  });
+
+      </script>
+      {% endblock %}
+    </body>
+  </html>

@@ -1,0 +1,81 @@
+{
+  "batik": [
+    {
+      "id": 0,
+      "nama_batik": "Batik Megamendung",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/2-9.png",
+      "daerah": "Jawa Barat",
+      "makna": "Motif ini konon diciptakan oleh seorang Raja di masa Kerajaan Pajajaran (923-1428) yang mendapatkan ilham melalui meditasi untuk mendapatkan petunjuk Tuhan untuk mengatasi pergolakan. Kata “Mega” berarti sinar mentari, sementara “Mendung” merupakan awan yang menutupi terik matahari. Motif awan ini menyiratkan kemampuan untuk tetap tenang dalam segala situasi, dan kemampuan untuk menjadi pimpinan yang mengilhami dan berbudi tinggi yang melindungi warga dan memenuhi kebutuhannya. "
+    },
+    {
+      "id": 1,
+      "nama_batik": "Batik Banji Cirebon",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/1-11.png",
+      "daerah": "Jawa Barat",
+      "makna": "Motif banji merupakan stilisasi motif swastika dari India yang masuk ke Indonesia melalui Tiongkok. Nama “banji” berasal dari istilah bahasa dialek suku Tionghoa “banzi”, yang secara harafiah berarti “sepuluh ribu”, sedangkan swastika itu sendiri merupakan simbol spiritual yang telah diadaptasi oleh kebudayaan Tiongkok. “Banji” melambangkan keberlimpahan dan keterhubungan spiritual segala hal yang ada di alam semesta. Motif ini dimaksudkan untuk menjaga kemurnian spiritual penggunanya dan melindunginya dari segala macam mara bahaya."
+    },
+    {
+      "id": 2,
+      "nama_batik": "Batik Sinaran",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/3-10.png",
+      "daerah": "Jawa Barat",
+      "makna": "Motif ini berasal dari Cirebon. Ia merupakan gambaran cahaya yang menyinari bunga di taman. Cahaya tersebut melambangkan pengetahuan dan pemahaman spiritual yang mendalam yang memungkinkan kita memandang segala sesuatu dengan positif, sedangkan bunga-bunganya melambangkan kemampuan untuk menghargai dan bersyukur segala hal terkecil sekalipun."
+    },
+    {
+      "id": 3,
+      "nama_batik": "Batik Gedhog Kembang Waluh",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/4-10.png",
+      "daerah": "Jawa Timur",
+      "makna": "Motif Gedhog merupakan gabungan motif dari budaya kerajaan Jawa Majapahit (abad ke-12 hingga ke-14), akulturasi budaya Cina (abad ke-12), dan budaya Islam (1465-1525 M). Interaksi ketiga budaya ini sangat mempengaruhi gaya hidup masyarakat Tuban hingga sekarang. Selendang dengan motif ini biasanya dipergunakan untuk melakukan ritual, upacara, dan pernikahan. Motif bunga ini secara simbolis merupakan perlindungan penggunanya dari nasib buruk dan membantu penyembuhan orang sakit."
+    },
+    {
+      "id": 4,
+      "nama_batik": "Batik Samudra",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/134.png",
+      "daerah": "Jawa Timur",
+      "makna": "Ada pula tema yang dapat digariskan pada tekstil dengan menggunakan teknik batik. Motif batik ini menggambarkan kuatnya tekad seseorang yang berlayar agar dapat mengejar tujuan hidupnya. Lukisan ini juga menggambarkan doa dan harapan agar seseorang yang merantau dapat menjemput keberhasilan."
+    },
+    {
+      "id": 5,
+      "nama_batik": "Batik Sekar Jati",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/2323.png",
+      "daerah": "Jawa Timur",
+      "makna": "Kata “Sekarjati” merupakan gabungan dari kata “sekar” (“bunga”) dan “jati”. Pohon jati merupakan aset ekonomi yang penting bagi masyarakat Bojonegoro. Motif ini melambangkan harapan agar penggunanya memiliki sifat yang tegar seperti jati, dan membawa pengaruh baik ke masyarakat seperti bunga."
+    },
+    {
+      "id": 6,
+      "nama_batik": "Batik Gajah Mungkur",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/eqwe.png",
+      "daerah": "Jawa Timur",
+      "makna": "Motif Batik Gajah Mungkur ini dibuat oleh seorang wanita saat menunggu kedatangan suaminya yang pergi berlayar selama bertahun-tahun. Motif ini menggunakan gambar “gajah” yang “mungkur” (terperangkap) di hutan bambu sebagai perlambangan perasaan rindu yang terperangkap dalam hati dan tak terkatakan pada seseorang.            "
+    },
+    {
+      "id": 7,
+      "nama_batik": "Batik Sido Mulyo",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/11/Central-Java-1.png",
+      "daerah": "Jawa Tengah",
+      "makna": "Sido Mulyo merupakan salah satu motif klasik yang khusus dipergunakan untuk pakaian pernikahan mempelai wanita dalam pernikahan keturunan raja dan bangsawan di Jawa.  Motif ini melambangkan harapan baik agar penggunanya mendapatkan kemuliaan, keluarga yang harmonis, dan status social yang dihormati."
+    },
+    {
+      "id": 8,
+      "nama_batik": "Batik Merak Lasem",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/afl.png",
+      "daerah": "Jawa Tengah",
+      "makna": "Merak dianggap sebagai raja para burung. Ia dianggap melambangkan keindahan, kekuatan, dan keanggunan dalam perilaku dan sikap sehari-hari. Motif yang kaya warna ini merupakan ciri khas batik yang diproduksi di daerah pesisir Utara Jawa."
+    },
+    {
+      "id": 9,
+      "nama_batik": "Batik Gurdo Solo",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/11/Gurdo.png",
+      "daerah": "Jawa Tengah",
+      "makna": "“Gurdo” atau garuda adalah kendaraan Dewa Wisnu.  Sebagai Burung Mentari, Gurda dilihat sebagai sumber utama kehidupan sekaligus simbol kejantanan.  Oleh sebab itu, simbol ini diharapkan akan menggugah kejujuran, keteguhan, dan kekuatan pada penggunanya.  Kain ini diberi warna dengan cara merendamnya dalam pewarna alami yang dibuat dari kayu tingki dari pulau Sumbawa, Indonesia Timur."
+    },
+    {
+      "id": 10,
+      "nama_batik": "Batik Parang Seling",
+      "image": "https://www.iwarebatik.org/wp-content/uploads/2019/09/apr.png",
+      "daerah": "Jawa Tengah",
+      "makna": "Parang Seling merupakan motif batik kerajaan.  Motif ini merupakan varian feminine dari motif “parang” klasik, yang diseling dengan motif bunga.  Selang-seling kedua motif yang berbeda ini mengingatkan para putri kerajaan bahwa mereka diharapkan untuk berlaku halus, lembut, dan harmonis dalam kehidupan sehari-hari, tapi juga tegas dan tak tergoyahkan dalam memegang prinsip dan keyakinannya."
+    }
+  ]
+}

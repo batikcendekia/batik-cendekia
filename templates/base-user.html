@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Batik Cendekia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsif.css') }}" />
+    {% block style %} {% endblock %}
+  </head>
+  <body>
+    <div class="se-pre-con"></div>
+    <header>
+      <nav id="navbar" class="navbar navbar-expand-lg w-100 position-fixed">
+        <div class="container">
+          <a class="navbar-brand" href="{{url_for('home')}}">
+            <img
+              id="nav-logo"
+              src="{{ url_for('static', filename='img/logo-white.png') }}"
+              data-white-src="{{ url_for('static', filename='img/logo-white.png') }}"
+              data-colored-src="{{ url_for('static', filename='img/logo.png') }}"
+              alt="Logo"
+              class="nav-logo"
+            />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="{{url_for('home')}}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if active_page == 'workshop' %}active{% endif %}" href="{{url_for('workshop')}}">Workshop</a>
+              </li>
+              <li class="nav-item dropdown gradient-button">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Halo, {{ session['username'] }} </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{url_for('logout_user')}}">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="thecontent">
+      <section id="hero" class="hero">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6 justify-items-center align-items-center">
+              <div class="animated hero-content text-center">
+                <h3>Selamat Datang</h3>
+                <h1>Batik Cendikia</h1>
+                <img class="hero-img" src="{{ url_for('static', filename='img/ornamen-garis.png') }}" alt="" />
+                <h2>Jaga Budaya & Harta Bangsa</h2>
+                <h2 class="with-lines">Indonesia 2024</h2>
+                <div class="text-center button-hero">
+                  <a href="#" class="btn-get-started scrollto">Explore Now</a>
+                  &nbsp;
+                  <a href="#/workshop" class="btn-get-started scrollto">Explore Event</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+          <defs>
+            <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+          </defs>
+          <g class="wave1">
+            <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)"></use>
+          </g>
+          <g class="wave2">
+            <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)"></use>
+          </g>
+          <g class="wave3">
+            <use xlink:href="#wave-path" x="50" y="9" fill="#fff"></use>
+          </g>
+        </svg>
+      </section>
+    </main>
+
+    <!-- content  -->
+    {% block content %}{% endblock %}
+    <!-- end content  -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    {% block script %} {% endblock %}
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+  </body>
+</html>
