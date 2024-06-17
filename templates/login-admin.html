@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+  </head>
+  <body id="login">
+    <section class="bg-login">
+      <div class="form" style="max-width: 560px; ">
+        <img src="{{ url_for('static', filename='img/logo.png')}}" alt="Logo" style="width: 55%" />
+        <h4 class="mt-5">ADMIN LOGIN</h4>
+        <div class="msg" style="color: red">{{ msg }}</div>
+        <br />
+        <form class="login-form" action="{{url_for('admin_login')}}" method="post">
+          <label for="username"> </label>
+          <input type="text" name="username" placeholder="Username" id="username" required autocomplete="off" />
+          <label for="password"> </label>
+          <div class="input-group">
+            <input type="password" name="password" placeholder="Password" id="password" required autocomplete="off" />
+          </div>
+          <br />
+          <a href="{{url_for('admin_login')}}" style="padding-top: 2px"><button>login</button></a>
+        </form>
+        <br/>
+      </div>
+    </section>
+    
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

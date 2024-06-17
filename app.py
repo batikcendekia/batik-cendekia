@@ -6,12 +6,14 @@ import os
 import asyncio
 import logging
 import threading
-import requests
-import os
+
 from werkzeug.utils import secure_filename
+from functools import wraps
+from datetime import datetime, date, time, timedelta
 
 app = Flask(__name__)
 
+# rooting 
 app.secret_key = 'tahutempe'
 conn = connector.connect(
     host='localhost',
@@ -21,15 +23,32 @@ conn = connector.connect(
 )
 cursor = conn.cursor()
 
-
-telegram_bot_token = '6672887281:AAH3siLmGzHtMERIIlbk6jX-FppwkunKy20'
-telegram_chat_id = '-4111644448'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 UPLOAD_FOLDER = 'static/img/data_upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-bot = Bot(token=telegram_bot_token)
+def get_telegram_settings():
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('SELECT bot_token, bot_id FROM admin')
+        settings = cursor.fetchone()
+        cursor.close()  # Tutup cursor setelah mengambil hasil query
+        
+        if settings:
+            return settings['bot_token'], settings['bot_id']
+        else:
+            raise Exception("Failed to retrieve Telegram settings from the database.")
+    except Exception as e:
+        logging.error("Terjadi kesalahan saat mengambil pengaturan Telegram: %s", e)
+        return None, None
 
+
+telegram_bot_token, telegram_chat_id = get_telegram_settings()
+
+if not telegram_bot_token or not telegram_chat_id:
+    raise Exception("Failed to retrieve Telegram settings from the database.")
+
+bot = Bot(token=telegram_bot_token)
 
 async def send_telegram_message(chat_id, message):
     try:
@@ -39,12 +58,10 @@ async def send_telegram_message(chat_id, message):
         logging.error(
             "Terjadi kesalahan saat mengirim pesan ke Telegram: %s", e)
 
-
 def send_telegram_message_sync(chat_id, message):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(send_telegram_message(chat_id, message))
-
 
 def insert_to_database(table, data):
     try:
@@ -58,8 +75,34 @@ def insert_to_database(table, data):
         return False
     finally:
         cursor.close()
-        conn.close()
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.template_filter('thousand_separator')
+def thousand_separator(number):
+    return f"{number:,.0f}".replace(',', '.')
+
+@app.template_filter('format_date')
+def format_date(date_str):
+    if isinstance(date_str, date):
+        date_obj = datetime.combine(date_str, time.min) 
+    else:
+        date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+
+    return date_obj.strftime('%d-%m-%Y')
+
+@app.template_filter('format_time')
+def format_time(time_str):
+    if isinstance(time_str, timedelta):
+        hours, remainder = divmod(time_str.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return '{:02}:{:02}'.format(hours, minutes)
+    else:
+        time_obj = datetime.strptime(time_str, '%H:%M:%S')
+        return time_obj.strftime('%H:%M')
+
+# end rooting
 
 @app.route('/')
 def home():
@@ -67,30 +110,18 @@ def home():
         'loggedin') else "base.html"
     return render_template('index.html', active_page='home', base_template=base_template)
 
-
 @app.route('/workshop')
 def workshop():
-    return render_template('workshop.html', active_page='workshop')
-
+    base_template = "base-user.html" if session.get(
+        'loggedin') else "base.html"
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM workshop')
+    event_list = cursor.fetchall()
+    return render_template('workshop.html', active_page='workshop', base_template=base_template, event_list=event_list)
 
 @app.route('/detail')
 def detail():
     return render_template('detail.html')
-
-
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
-
-
-@app.route('/tambah_mobil')
-def tambah_mobil():
-    return render_template('tambah_mobil.html')
-
-# @app.route('/biodata/')
-# def biodata():
-#     return render_template('biodata.html')
-
 
 @app.route('/daftar/')
 def daftar():
@@ -100,9 +131,8 @@ def daftar():
 def modal():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM workshop')
-    mobil_list = cursor.fetchall()
-    cursor.close()
-    return render_template('coba_modal.html', mobil_list=mobil_list)
+    event_list = cursor.fetchall()
+    return render_template('coba_modal.html', event_list=event_list)
 
 @app.route('/api/event/<int:event_id>')
 def get_event(event_id):
@@ -119,13 +149,6 @@ def get_event(event_id):
     finally:
         cursor.close()
 
-
-
-# @app.route('/login/')
-# def login():
-#     return render_template('login.html')
-
-
 @app.route('/api/batik')
 def get_batik():
     try:
@@ -140,7 +163,6 @@ def get_batik():
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
 
-
 @app.route('/all/api/batik')
 def get_all_batik():
     try:
@@ -154,7 +176,6 @@ def get_all_batik():
         return jsonify({'error': 'Error decoding JSON'}), 500
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
-
 
 @app.route('/api/batik/<int:batik_id>')
 def get_batik_detail(batik_id):
@@ -173,7 +194,6 @@ def get_batik_detail(batik_id):
         return jsonify({'error': 'Error decoding JSON'}), 500
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
-
 
 @app.route('/biodata/', methods=['GET', 'POST'])
 def biodata():
@@ -225,7 +245,8 @@ def pendaftaran():
                     username, email, password, phone))
                 conn.commit()
                 flash('Registrasi Berhasil', 'success')
-                session.pop('phone', None)  # Hanya dihapus jika berhasil
+                session.pop('phone', None)
+                return redirect(url_for('login'))
             else:
                 flash('Username atau Email sudah digunakan', 'danger')
         else:
@@ -249,7 +270,7 @@ def login():
             cursor.execute('SELECT accounts.phone, biodata.nama_awal FROM accounts INNER JOIN biodata ON accounts.phone=biodata.phone where accounts.username = %s and accounts.password = %s', (username, password,))
             biodata = cursor.fetchone()
             if biodata:
-                session['username'] = biodata[1]
+                session['username'] = username
                 session['phone'] = biodata[0]
                 session['loggedin'] = True
             return redirect(url_for('home'))
@@ -257,13 +278,112 @@ def login():
             msg = 'Username/password salah!'
     return render_template('login.html', msg=msg)
 
-
 @app.route('/logout_user')
 def logout_user():
     session.pop('username', None)
     session.pop('password', None)
     session.pop('loggedin', None)
     return redirect(url_for('login'))
+
+@app.route('/pesan', methods=['GET', 'POST'])
+def pesan():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+    username = session['username']
+    paket = request.form['paket']
+    jumlah_tiket = int(request.form['jumlah_tiket'])
+    harga_per_tiket = int(request.form['harga_per_tiket'])
+    total_harga = jumlah_tiket * harga_per_tiket
+
+    data = (username, paket, jumlah_tiket, total_harga)
+    table = "INSERT INTO pesanan (username, nama_event, jumlah_tiket, total_harga) VALUES (%s, %s, %s, %s)"
+
+    if insert_to_database(table, data):
+        message =  f"Ada Pesanan Baru:\nNama: {username}\nWorkshop: {paket}\nJumlah tiket: {jumlah_tiket}\nTotal Harga: {total_harga}"
+        background_thread = threading.Thread(target=send_telegram_message_sync, args=(telegram_chat_id, message))
+        background_thread.start()
+        background_thread.join()
+        return redirect(url_for('workshop'))
+    else:
+        return "Terjadi kesalahan saat memproses konsultasi", 500
+
+
+# admin 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'admin' not in session:
+            return redirect('/admin_login')
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if 'admin' in session:
+        return redirect('/admin')
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM admin WHERE username = %s AND password = %s", (username, password))
+        admin = cursor.fetchone()
+        cursor.close()
+        if admin:
+            session['admin'] = admin
+            return redirect('/admin')
+        else:
+            error = 'Username atau password salah'
+    return render_template('login-admin.html', error=error)
+
+# Logout admin
+
+
+@app.route('/logout-admin')
+def logout_admin():
+    # Hapus admin dari session
+    session.pop('admin', None)
+    return redirect('/admin_login')
+# end admin 
+
+@app.route('/admin')
+@login_required
+def dashboard():
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM workshop')
+    event_list = cursor.fetchall()
+    
+    cursor.execute('SELECT COUNT(*) FROM workshop')
+    jml_workshop = cursor.fetchone()[0]
+
+    cursor.execute('SELECT COUNT(*) FROM pesanan')
+    jml_pesanan = cursor.fetchone()[0]
+
+    cursor.execute('SELECT SUM(total_harga) FROM pesanan')
+    pendapatan = cursor.fetchone()[0]
+
+    if pendapatan is None:
+        pendapatan = 0
+
+    cursor.execute("""
+        SELECT pesanan.username, pesanan.nama_event, pesanan.jumlah_tiket, pesanan.total_harga, biodata.nama_awal, biodata.nama_akhir
+        FROM pesanan
+        INNER JOIN accounts ON pesanan.username = accounts.username
+        INNER JOIN biodata ON accounts.phone = biodata.phone; 
+    """)
+    pesanan_workshop = cursor.fetchall()
+    cursor.close()
+    return render_template('dashboard.html', event_list=event_list, jml_workshop=jml_workshop, telegram_bot_token=telegram_bot_token, telegram_chat_id=telegram_chat_id, pesanan_workshop=pesanan_workshop, jml_pesanan=jml_pesanan, pendapatan=pendapatan)
+
+
+@app.route('/hapus_event/<int:id>', methods=['GET', 'POST'])
+@login_required
+def hapus_event(id):
+    cursor.execute('DELETE FROM workshop WHERE id = %s', (id,))
+    conn.commit()
+    return redirect('/admin')
 
 
 def allowed_file(filename):
@@ -292,7 +412,53 @@ def add_workshop():
                            (event, tgl_mulai, tgl_akhir, harga, lokasi, jam_mulai, jam_akhir, deskripsi, stock, filename))
             conn.commit()
             return redirect('/admin')
-    return render_template('tambah_mobil.html')
+    return render_template('dashboard.html')
+
+
+@app.route('/update_workshop', methods=['POST'])
+@login_required
+def update_workshop():
+    id = request.form['id']
+    event = request.form['event']
+    harga = request.form['harga']
+    tgl_mulai = request.form['tgl_mulai']
+    tgl_akhir = request.form['tgl_akhir']
+    jam_mulai = request.form['jam_mulai']
+    jam_akhir = request.form['jam_akhir']
+    lokasi = request.form['lokasi']
+    stock = request.form['stock']
+    deskripsi = request.form['deskripsi']
+    gambar = request.files['gambar']
+
+    if gambar and allowed_file(gambar.filename):
+        filename = secure_filename(gambar.filename)
+        gambar_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        gambar.save(gambar_path)
+        cursor.execute("UPDATE workshop SET nama_event=%s, tanggal_mulai=%s, tanggal_berakhir=%s, harga=%s, lokasi=%s, jam_mulai=%s, jam_berakhir=%s, deskripsi=%s, stock=%s, gambar=%s WHERE id=%s",
+                       (event, tgl_mulai, tgl_akhir, harga, lokasi, jam_mulai, jam_akhir, deskripsi, stock, filename, id))
+    else:
+        cursor.execute("UPDATE workshop SET nama_event=%s, tanggal_mulai=%s, tanggal_berakhir=%s, harga=%s, lokasi=%s, jam_mulai=%s, jam_berakhir=%s, deskripsi=%s, stock=%s WHERE id=%s",
+                       (event, tgl_mulai, tgl_akhir, harga, lokasi, jam_mulai, jam_akhir, deskripsi, stock, id))
+
+    conn.commit()
+    return redirect('/admin')
+
+@app.route('/update_telegram_api', methods=['POST'])
+@login_required
+def update_telegram_api():
+    global telegram_bot_token, telegram_chat_id
+    telegram_bot_token = request.form['telegram_bot_token']
+    telegram_chat_id = request.form['telegram_chat_id']
+
+    cursor = conn.cursor()
+    cursor.execute('UPDATE admin SET bot_token = %s, bot_id = %s',
+                   (telegram_bot_token, telegram_chat_id))
+    conn.commit()
+    cursor.close()
+    
+    flash('Telegram API settings updated successfully', 'success')
+    return redirect('/admin')
+
 
 
 if __name__ == '__main__':

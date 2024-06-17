@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+      .container-fluid {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        box-sizing: border-box;
+        transition: transform 0.3s ease;
+        position: relative; /* Agar tombol close dapat diposisikan relatif terhadap sidebar */
+        margin-left: -20px !important;
+      }
+
+      .sidebar h2 {
+        text-align: center;
+        margin: 0;
+        padding: 10px 0;
+      }
+
+      .sidebar nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar nav ul li {
+        margin: 10px 0;
+      }
+
+      .sidebar nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        background-color: #444;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .sidebar nav ul li a:hover {
+        background-color: #555;
+      }
+
+      .sidebar nav ul .submenu a {
+        padding-left: 20px;
+      }
+
+      .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .hamburger-btn {
+        display: none;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        margin-right: 20px;
+      }
+
+      #logout-btn {
+        padding: 10px 20px;
+        background-color: #d9534f;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #logout-btn:hover {
+        background-color: #c9302c;
+      }
+
+      #content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container-fluid #sidebar .btn-close {
+        display: none;
+        position: absolute;
+        top: 10px; /* Sesuaikan jarak dari atas */
+        right: 10px; /* Sesuaikan jarak dari kanan */
+        filter: invert(1); /* Menjadikan warna putih */
+      }
+
+      .container-fluid #sidebar .btn-close:focus,
+      .container-fluid #sidebar .btn-close:hover {
+        background-color: transparent; /* Menghapus background saat hover/focus */
+      }
+
+      /* Media Queries for responsiveness */
+      @media (max-width: 768px) {
+        .container-fluid {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          transform: translateX(-100%);
+          z-index: 1000;
+          width: 100%;
+          overflow-y: auto;
+        }
+
+        .sidebar.active {
+          transform: translateX(0);
+        }
+
+        .hamburger-btn {
+          display: block;
+        }
+
+        .container-fluid #sidebar .btn-close {
+          display: block;
+        }
+
+        #sidebar .main-content {
+          padding-top: 60px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .sidebar nav ul {
+          display: flex;
+          flex-direction: column;
+          padding: 20px;
+        }
+
+        .sidebar nav ul li {
+          margin: 5px 0;
+        }
+
+        .sidebar nav ul li a {
+          padding: 15px;
+          width: 100%;
+          text-align: left;
+        }
+
+        .sidebar nav ul .submenu a {
+          padding-left: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        #logout-btn {
+          margin-top: 10px;
+          width: 100%;
+        }
+
+        .header-left {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .hamburger-btn {
+          margin: 10px 0;
+        }
+
+        .sidebar nav ul li a {
+          text-align: left;
+          padding-left: 15px;
+        }
+
+        .sidebar nav ul .submenu a {
+          padding-left: 30px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <aside class="sidebar" id="sidebar">
+        <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h2>Admin Panel</h2>
+        <nav>
+          <ul>
+            <li><a href="#" id="dashboard" >Dashboard</a></li>
+            <li><a href="#" id="user">Pesanan</a></li>
+            <li><a href="#" id="module">Workshop</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <header>
+          <div class="header-left">
+            <button id="hamburger-btn" class="hamburger-btn">&#9776;</button>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <a href="{{url_for('logout_admin')}}"><button id="logout-btn">Logout</button></a>
+        </header>
+        <section id="content">
+          <!-- Dynamic content will be loaded here -->
+        </section>
+      </main>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel5" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="workshopForm" action="{{url_for('add_workshop')}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="id" name="id" />
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel5">Formulir Konsultasi</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="nama">Nama Event</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="text" class="form-control" id="event" name="event" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="harga">Harga Tiket</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="number" class="form-control" id="harga" name="harga" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="tgl_mulai">Tanggal Mulai</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="date" class="form-control" id="tgl_mulai" name="tgl_mulai" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="tgl_akhir">Tanggal Akhir</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="date" class="form-control" id="tgl_akhir" name="tgl_akhir" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="jam_mulai">Jam mulai</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="time" class="form-control" id="jam_mulai" name="jam_mulai" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="jam_akhir">Jam berakhir</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="time" class="form-control" id="jam_akhir" name="jam_akhir" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="lokasi">Lokasi</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="text" class="form-control" id="lokasi" name="lokasi" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="stock">Stock</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="number" class="form-control" id="stock" name="stock" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="deskripsi">Deskripsi</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="gambar">Poster:</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="file" class="form-control-file" id="gambar" name="gambar" accept="image/*" />
+                  <div id="preview"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Simpan Perubahan" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel5" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="workshopForm" action="{{url_for('add_workshop')}}" method="POST" enctype="multipart/form-data">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel5">Formulir Konsultasi</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="nama">Nama Event</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="text" class="form-control" id="event" name="event" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="harga">Harga Tiket</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="number" class="form-control" id="harga" name="harga" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="tgl_mulai">Tanggal Mulai</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="date" class="form-control" id="tgl_mulai" name="tgl_mulai" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="tgl_akhir">Tanggal Akhir</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="date" class="form-control" id="tgl_akhir" name="tgl_akhir" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="jam_mulai">Jam mulai</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="time" class="form-control" id="jam_mulai" name="jam_mulai" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="jam_akhir">Jam berakhir</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="time" class="form-control" id="jam_akhir" name="jam_akhir" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="lokasi">Lokasi</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="text" class="form-control" id="lokasi" name="lokasi" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="stock">Stock</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="number" class="form-control" id="stock" name="stock" required />
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="deskripsi">Deskripsi</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                </div>
+              </div>
+              <div class="mb-3 row ps-2 pb-lg-2">
+                <label for="gambar">Poster:</label>
+                <div class="col-lg-12 pe-lg-4">
+                  <input type="file" class="form-control-file" id="gambar" name="gambar" accept="image/*" />
+                  <div id="preview"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Simpan Perubahan" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const pageTitle = document.getElementById("page-title");
+        const content = document.getElementById("content");
+        const sidebar = document.getElementById("sidebar");
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const closeBtn = document.getElementById("btn-close");
+
+        function loadContent(title, htmlContent) {
+          pageTitle.innerText = title;
+          content.innerHTML = htmlContent;
+        }
+
+        const pages = {
+          dashboard: {
+            title: "Dashboard",
+            content: `
+                    <p>Welcome to the Dashboard Super Admin!</p>
+                    <div class="container d-flex">
+                        <div class="row">
+                            <div class="col-3 rounded-5 pt-3 info-box me-5" style="width: fit-content;">
+                                <p>Jumlah Workshop</p>
+                                {% if jml_workshop > 0 %}
+                                <h2>{{ jml_workshop }}</h2>
+                                {% else %}
+                                <h2>0</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 rounded-5 pt-3 info-box me-5" style="width: fit-content;">
+                                <p>Jumlah Pesanan</p>
+                                {% if jml_pesanan > 0 %}
+                                <h2>{{ jml_pesanan }}</h2>
+                                {% else %}
+                                <h2>0</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 rounded-5 pt-3 info-box" style="width: fit-content;">
+                                <p>Jumlah Pesanan</p>
+                                {% if pendapatan > 0 %}
+                                <h2>{{ pendapatan | thousand_separator }}</h2>
+                                {% else %}
+                                <h2>0</h2>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    `,
+          },
+          user: {
+            title: "Pesanan",
+            content: `
+                    <section id="telegram-api-settings">
+                      <h2>Update Telegram API Settings</h2>
+                      <form id="telegramApiForm" action="{{url_for('update_telegram_api')}}" method="POST">
+                        <div class="mb-3 row ps-2 pb-lg-2">
+                          <label for="telegram_bot_token">Telegram <a href="https://t.me/batikcendekia_bot" target="_blank" style="text-decoration: none;">Bot Token</a></label>
+                          <div class="col-lg-12 pe-lg-4">
+                            <input type="text" class="form-control" id="telegram_bot_token" name="telegram_bot_token" value="{{ telegram_bot_token }}" required />
+                          </div>
+                        </div>
+                        <div class="mb-3 row ps-2 pb-lg-2">
+                          <label for="telegram_chat_id">Telegram <a href="https://t.me/myidbot" target="_blank" style="text-decoration: none;">Chat ID</a></label>
+                          <div class="col-lg-12 pe-lg-4">
+                            <input type="text" class="form-control" id="telegram_chat_id" name="telegram_chat_id" value="{{ telegram_chat_id }}" required />
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" value="Update Telegram API Settings" />
+                        </div>
+                      </form>
+                      
+                    </section>
+
+                    <section class="mt-5">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">Nama Pembeli</th>
+                                <th scope="col">Nama Event</th>
+                                <th scope="col">Banyak Tiket yang dipesan</th>
+                                <th scope="col">Harga Total</th>
+                            </tr>
+                        </thead>
+                        {% for order in pesanan_workshop %}
+                        <tbody>
+                            <tr>
+                                <td data-label="Username">{{ order[0] }}</td>
+                                <td data-label="Nama Event">{{ order[1] }}</td>
+                                <td data-label="Nama Pembeli">{{ order[4] }} {{ order[5] }}</td>
+                                <td data-label="Banyak Tiket Tiket">{{ order[2] }}</td>
+                                <td data-label="Total Harga">Rp {{ order[3] | thousand_separator }}</td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                    </section>
+                    `,
+          },
+          module: {
+            title: "Daftar Workshop",
+            content: `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Gambar</th>
+                                <th scope="col">Nama Event</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Stock Tiket</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jam</th>
+                                <th scope="col">Lokasi</th>
+                                <th scope="col">Deskripsi Event</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        {% for event in event_list %}
+                        <tbody>
+                            <tr>
+                                <td scope="row" data-label="Poster">
+                                {% if event[10] %}
+                                <img src="{{ url_for('static', filename='img/data_upload/' + event[10]) }}" alt="batik-img" style="width: 100px;"/></td>
+                                {% else %}
+                                <span>Poster tidak tersedia</span>
+                                {% endif %}
+                                <td data-label="Nama Event">{{ event[1] }}</td>
+                                <td data-label="Harga Tiket">Rp {{ event[4] | thousand_separator }}</td>
+                                {% if event[9] > 0 %}
+                                <td data-label="Stock Tiket">{{ event[9] }}</td>
+                                {% else %}
+                                <td data-label="Stock Tiket" style="color: red;">Tiket Habis</td>
+                                {% endif %}
+                                <td data-label="Tanggal">{{ event[2] }} s.d. {{ event[3] }}</td>
+                                <td data-label="Jam">{{ event[6] }} - {{ event[7] }}</td>
+                                <td data-label="Lokasi">{{ event[5] }}</td>
+                                <td data-label="Deskripsi Event">{{ event[8] }}</td>
+                                <td data-label="Deskripsi Event" style="display: flex;">
+                                    <button class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop5" onclick="editWorkshop({{ event[0] }}, '{{ event[1] }}', {{ event[4] }}, '{{ event[2] }}', '{{ event[3] }}', '{{ event[6] }}', '{{ event[7] }}', '{{ event[5] }}', {{ event[9] }}, '{{ event[8] }}')">Ubah</button>
+                                    <a href="/hapus_event/{{ event[0] }}"><button class="btn btn-danger">Hapus</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                    <button class="btn btn-lg btn-warning mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">Tambah Workshop</button>
+                    `,
+          },
+        };
+
+        document.getElementById("dashboard").addEventListener("click", function () {
+          loadContent(pages.dashboard.title, pages.dashboard.content);
+        });
+
+        document.getElementById("user").addEventListener("click", function () {
+          loadContent(pages.user.title, pages.user.content);
+        });
+
+        document.getElementById("module").addEventListener("click", function () {
+          loadContent(pages.module.title, pages.module.content);
+        });
+
+        // Load default page
+        loadContent(pages.dashboard.title, pages.dashboard.content);
+
+        // Toggle sidebar visibility
+        hamburgerBtn.addEventListener("click", function () {
+          sidebar.classList.toggle("active");
+        });
+        closeBtn.addEventListener("click", function () {
+          sidebar.classList.remove("active");
+        });
+      });
+
+      function editWorkshop(id, event, harga, tgl_mulai, tgl_akhir, jam_mulai, jam_akhir, lokasi, stock, deskripsi, gambar) {
+        document.getElementById("id").value = id;
+        document.getElementById("event").value = event;
+        document.getElementById("harga").value = harga;
+        document.getElementById("tgl_mulai").value = tgl_mulai;
+        document.getElementById("tgl_akhir").value = tgl_akhir;
+        document.getElementById("jam_mulai").value = jam_mulai;
+        document.getElementById("jam_akhir").value = jam_akhir;
+        document.getElementById("lokasi").value = lokasi;
+        document.getElementById("stock").value = stock;
+        document.getElementById("deskripsi").value = deskripsi;
+        document.getElementById("workshopForm").action = "{{url_for('update_workshop')}}";
+      }
+    </script>
+
+  </body>
+</html>

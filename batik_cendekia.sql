@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2024 at 03:37 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Waktu pembuatan: 15 Jun 2024 pada 18.06
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,12 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
+-- Struktur dari tabel `accounts`
 --
 
 CREATE TABLE `accounts` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(50) NOT NULL,
   `phone` int(18) NOT NULL
@@ -38,7 +38,28 @@ CREATE TABLE `accounts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `biodata`
+-- Struktur dari tabel `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `bot_token` varchar(255) NOT NULL,
+  `bot_id` bigint(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `bot_token`, `bot_id`) VALUES
+(1, 'admin', '123', '6878778461:AAGw0YRr44zuSlNaGghiSFy8JJVgmNPYYAo', 1302595148);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `biodata`
 --
 
 CREATE TABLE `biodata` (
@@ -57,7 +78,22 @@ CREATE TABLE `biodata` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workshop`
+-- Struktur dari tabel `pesanan`
+--
+
+CREATE TABLE `pesanan` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `nama_event` varchar(255) NOT NULL,
+  `jumlah_tiket` int(50) NOT NULL,
+  `total_harga` int(50) NOT NULL,
+  `sisa_tiket` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `workshop`
 --
 
 CREATE TABLE `workshop` (
@@ -68,7 +104,10 @@ CREATE TABLE `workshop` (
   `harga` int(50) NOT NULL,
   `lokasi` varchar(255) NOT NULL,
   `jam_mulai` time NOT NULL,
-  `jam_berakhir` time NOT NULL
+  `jam_berakhir` time NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `stock` tinyint(50) NOT NULL,
+  `gambar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -76,49 +115,83 @@ CREATE TABLE `workshop` (
 --
 
 --
--- Indexes for table `accounts`
+-- Indeks untuk tabel `accounts`
 --
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `phone` (`phone`);
 
 --
--- Indexes for table `biodata`
+-- Indeks untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `biodata`
 --
 ALTER TABLE `biodata`
   ADD PRIMARY KEY (`phone`);
 
 --
--- Indexes for table `workshop`
+-- Indeks untuk tabel `pesanan`
+--
+ALTER TABLE `pesanan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_username` (`username`),
+  ADD KEY `nama_event` (`nama_event`) USING BTREE;
+
+--
+-- Indeks untuk tabel `workshop`
 --
 ALTER TABLE `workshop`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nama_event` (`nama_event`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `accounts`
+-- AUTO_INCREMENT untuk tabel `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `workshop`
+-- AUTO_INCREMENT untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `pesanan`
+--
+ALTER TABLE `pesanan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT untuk tabel `workshop`
 --
 ALTER TABLE `workshop`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `accounts`
+-- Ketidakleluasaan untuk tabel `accounts`
 --
 ALTER TABLE `accounts`
-  ADD CONSTRAINT `connect_phone` FOREIGN KEY (`phone`) REFERENCES `biodata` (`phone`);
+  ADD CONSTRAINT `connect_phone` FOREIGN KEY (`phone`) REFERENCES `biodata` (`phone`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `pesanan`
+--
+ALTER TABLE `pesanan`
+  ADD CONSTRAINT `connect_event` FOREIGN KEY (`nama_event`) REFERENCES `workshop` (`nama_event`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

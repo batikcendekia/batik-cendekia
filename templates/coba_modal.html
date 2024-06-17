@@ -9,39 +9,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/coba.css') }}" />
   </head>
   <body>
-    
     <section>
       <div class="container mt-5">
-        <div class="row">
-          <div class="content-title">
-            <h1>Batik Gallery</h1>
-          </div>
-        </div>
-      </div>
-      {% for mobil in mobil_list %}
-      <div class="container mt-5">
         <div class="row text-center align-items-center justify-items-center" id="gallery-batik">
+          {% for event in event_list %}
           <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center pb-5">
             <div class="container-batik">
               <div class="batik-img">
-                {% if mobil[10] %}
-                <img src="{{ url_for('static', filename='img/data_upload/' + mobil[10]) }}" alt="batik-img" />
+                {% if event[10] %}
+                <img src="{{ url_for('static', filename='img/data_upload/' + event[10]) }}" alt="batik-img" />
                 {% else %}
                 <span>Gambar tidak tersedia</span>
                 {% endif %}
               </div>
               <div class="main-batik">
                 <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#modalQuickview" data-id="${event.id}">
-                  <strong tabindex="0">{{ mobil[2] }}</strong>
+                  <strong tabindex="0">{{ event[2] }}</strong>
                 </button>
                 <div class="batik-daerah">
-                  <p tabindex="0">{{ mobil[5] }}</p>
+                  <p tabindex="0">{{ event[5] }}</p>
                 </div>
-                <p tabindex="0">{{ mobil[8] }}</p>
+                <p tabindex="0">{{ event[8] }}</p>
               </div>
-              </div>
-              </div>
-            {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </div>
       <div class="container mb-5">
@@ -52,9 +44,8 @@
         </div>
       </div>
     </section>
-
     <section>
-      <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#modalQuickview" data-event-id="1">Ini Tombol</button>
+      <button type="button" class="btn btn-primary show-details" data-bs-toggle="modal" data-bs-target="#modalQuickview">Ini Tombol</button>
     </section>
     <div class="modal fade" id="modalQuickview" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -73,7 +64,7 @@
                   <div class="product-details-gallery-area">
                     <div class="product-large-image modal-product-image-large">
                       <div class="product-image-large-single">
-                        <img class="img-fluid" id="event-image" src="" alt="" />
+                        <img class="img-fluid" src="{{ url_for('static', filename='/img/class-01.png')}}" alt="" />
                       </div>
                     </div>
                   </div>
@@ -81,11 +72,30 @@
                 <div class="col-md-6">
                   <div class="product-details-content-area">
                     <div class="product-details-text">
-                      <h4 class="title" id="event-title"></h4>
-                      <div class="price" id="event-price"></div>
-                      <p id="event-description"></p>
+                      <h4 class="title">Nonstick Dishwasher PFOA</h4>
+                      <div class="price"><del>$70.00</del>$80.00</div>
+                      <ul>
+                        <li>Tanggal Mulai</li>
+                        <li class="price">2024-08-22 s.d 2024-11-11</li>
+                        <li>Jam</li>
+                        <li>20.00</li>
+                      </ul>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam, reiciendis maiores quidem aperiam,
+                        rerum vel recusandae
+                      </p>
                     </div>
-                    <!-- End Product Details Text Area-->
+                    <!-- End  Product Details Text Area-->
+                    <div class="product-details-variable">
+                      <!-- Product Variable Single Item -->
+                      <div class="variable-single-item ">
+                          <span>Quantity 112</span>
+                          <div class="product-variable-quantity">
+                              <input min="1" max="100" value="1" type="number">
+                          </div>
+                      </div>
+                  </div>
+                    
                   </div>
                 </div>
               </div>
@@ -94,33 +104,8 @@
         </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script>
-      $(document).ready(function () {
-        $("#modalQuickview").on("show.bs.modal", function (event) {
-          var button = $(event.relatedTarget);
-          var eventId = button.data("event-id");
-
-          $.ajax({
-            url: "/api/event/" + eventId,
-            method: "GET",
-            success: function (data) {
-              if (data.error) {
-                alert(data.error);
-              } else {
-                $("#event-image").attr("src", "/static/img/data_upload/" + data.gambar);
-                $("#event-title").text(data.nama_event);
-                $("#event-price").text("$" + data.harga);
-                $("#event-description").text(data.deskripsi);
-              }
-            },
-            error: function (error) {
-              alert("Could not fetch event details.");
-            },
-          });
-        });
-      });
-    </script>
   </body>
 </html>

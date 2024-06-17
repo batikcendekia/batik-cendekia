@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tambah Mobil Baru</title>
+    <title>Tambah event Baru</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <style>
       .container {
@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Tambah Mobil Baru</h1>
+      <h1>Tambah event Baru</h1>
       <div class="form-container">
         <form action="{{url_for('add_workshop')}}" method="POST" enctype="multipart/form-data">
           <div class="form-group">
@@ -65,7 +65,7 @@
             <input type="file" class="form-control-file" id="gambar" name="gambar" accept="image/*" />
             <div id="preview"></div>
           </div>
-          <input type="submit" class="btn btn-primary" value="Tambah Mobil" />
+          <input type="submit" class="btn btn-primary" value="Tambah event" />
         </form>
       </div>
     </div>
