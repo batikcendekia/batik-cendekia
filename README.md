@@ -1,4 +1,6 @@
-# Panduan Penggunaan Batik Cendikia
+# <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/a42a3cd2-6b18-4b07-adbb-71ba4182fa8d" width="100px"> Panduan Penggunaan Batik Cendikia
+
+
 
 Ketika Anda mengakses website https://batikcendekia.my.id/, Anda akan langsung dibawa ke halaman beranda. Di sini, Anda akan menemukan beberapa fitur utama seperti:
 
