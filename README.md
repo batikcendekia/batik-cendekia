@@ -6,7 +6,7 @@ Di bagian atas halaman, Anda akan melihat menu navigasi yang berisi:
 * Workshop: Menampilkan Alasan Membatik dan Kelas Workshop.
 * Login: Login or Sign Up.
   
-<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/f56d74df-d989-4b87-9b98-f8212c3b8560" width="80%">
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/f56d74df-d989-4b87-9b98-f8212c3b8560" width="100%">
 
 # Halaman Utama 
 Ketika Anda mengakses website https://batikcendekia.my.id/, Anda akan langsung dibawa ke halaman beranda. Di sini, Anda akan menemukan beberapa fitur utama seperti:
@@ -29,6 +29,12 @@ Anda dapat menekan tombol "Hallo Guys" untuk melihat jenis batik yang belum dita
 Kemudian halaman akan mengantarkan anda untuk dapat melihat lebih banyak jenis jenis batik lainnya. 
 
 <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/34da8f01-e28a-4947-a2f6-34b8f4420706" width="100%"> 
+
+# <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/cd55bfac-4712-41ba-9f87-757a90bb5cf4" width="50px"> Halaman Workshop
+Pada halaman ini anda dapat melihat alasan "Kenapa Belajar Batik", dan Kelas Workshop yang sedang tersedia
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/244b812d-b8f9-4c94-9c26-b22a6c73f339" width="100%"> 
+
 
 
 Pada tampilan login, isikan username dan password administrator SID. Pada instalasi awal, login administrator adalah sebagai berikut:
