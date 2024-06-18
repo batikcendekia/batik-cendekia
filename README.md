@@ -1,17 +1,35 @@
 # <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/a42a3cd2-6b18-4b07-adbb-71ba4182fa8d" width="100px"> Panduan Penggunaan Batik Cendikia
 
+Di bagian atas halaman, Anda akan melihat menu navigasi yang berisi:
 
+* Home: Kembali ke halaman utama.
+* Workshop: Menampilkan Alasan Membatik dan Kelas Workshop.
+* Login: Login or Sign Up.
+  
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/f56d74df-d989-4b87-9b98-f8212c3b8560" width="80%">
 
+# Halaman Utama 
 Ketika Anda mengakses website https://batikcendekia.my.id/, Anda akan langsung dibawa ke halaman beranda. Di sini, Anda akan menemukan beberapa fitur utama seperti:
 
-Sejarah Singkat Batik. 
-Galeri Batik. 
+* Sejarah Singkat Batik. 
+* Galeri Batik. 
 
-<img src="https://drive.google.com/drive/folders/1UH-lNB-zN2dikTKOynsBnKGHCW5V2Ln2" width="80%">
 Pada tampilan galeri batik anda dapat melihat motif-motif batik di seluruh Indonesia. 
-<img src="https://cloud.githubusercontent.com/assets/249563/17801803/ce5ffe7a-661e-11e6-9970-e949b9aef287.jpg" width="80%">
-Anda juga dapat melihat detail dari batik tersebut. 
-<img src="https://cloud.githubusercontent.com/assets/249563/17801803/ce5ffe7a-661e-11e6-9970-e949b9aef287.jpg" width="80%">
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/b449b7a9-ed4c-483c-bd77-ea17ac256642" width="100%"> 
+
+Anda juga dapat melihat detail dari batik tersebut dengan menekan nama batik dan tampilan detail batik akan ditampilkan. 
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/56954b2f-34c7-44e2-b7a1-2ea46842c04f" width="80%"> 
+
+Anda dapat menekan tombol "Hallo Guys" untuk melihat jenis batik yang belum ditampilkan
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/ea3489e9-ea8e-40fb-ae24-59d524cfae2e" width="100%"> 
+
+Kemudian halaman akan mengantarkan anda untuk dapat melihat lebih banyak jenis jenis batik lainnya. 
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/34da8f01-e28a-4947-a2f6-34b8f4420706" width="100%"> 
+
 
 Pada tampilan login, isikan username dan password administrator SID. Pada instalasi awal, login administrator adalah sebagai berikut:
 
