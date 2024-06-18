@@ -13,7 +13,7 @@ from datetime import datetime, date, time, timedelta
 
 app = Flask(__name__)
 
-# rooting 
+# rooting
 app.secret_key = 'tahutempe'
 conn = connector.connect(
     host='localhost',
@@ -27,19 +27,22 @@ ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 UPLOAD_FOLDER = 'static/img/data_upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 def get_telegram_settings():
     try:
         cursor = conn.cursor(dictionary=True)
         cursor.execute('SELECT bot_token, bot_id FROM admin')
         settings = cursor.fetchone()
         cursor.close()  # Tutup cursor setelah mengambil hasil query
-        
+
         if settings:
             return settings['bot_token'], settings['bot_id']
         else:
-            raise Exception("Failed to retrieve Telegram settings from the database.")
+            raise Exception(
+                "Failed to retrieve Telegram settings from the database.")
     except Exception as e:
-        logging.error("Terjadi kesalahan saat mengambil pengaturan Telegram: %s", e)
+        logging.error(
+            "Terjadi kesalahan saat mengambil pengaturan Telegram: %s", e)
         return None, None
 
 
@@ -50,6 +53,7 @@ if not telegram_bot_token or not telegram_chat_id:
 
 bot = Bot(token=telegram_bot_token)
 
+
 async def send_telegram_message(chat_id, message):
     try:
         await bot.send_message(chat_id=chat_id, text=message)
@@ -58,10 +62,12 @@ async def send_telegram_message(chat_id, message):
         logging.error(
             "Terjadi kesalahan saat mengirim pesan ke Telegram: %s", e)
 
+
 def send_telegram_message_sync(chat_id, message):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(send_telegram_message(chat_id, message))
+
 
 def insert_to_database(table, data):
     try:
@@ -76,21 +82,25 @@ def insert_to_database(table, data):
     finally:
         cursor.close()
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.template_filter('thousand_separator')
 def thousand_separator(number):
     return f"{number:,.0f}".replace(',', '.')
 
+
 @app.template_filter('format_date')
 def format_date(date_str):
     if isinstance(date_str, date):
-        date_obj = datetime.combine(date_str, time.min) 
+        date_obj = datetime.combine(date_str, time.min)
     else:
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
 
     return date_obj.strftime('%d-%m-%Y')
+
 
 @app.template_filter('format_time')
 def format_time(time_str):
@@ -104,11 +114,13 @@ def format_time(time_str):
 
 # end rooting
 
+
 @app.route('/')
 def home():
     base_template = "base-user.html" if session.get(
         'loggedin') else "base.html"
     return render_template('index.html', active_page='home', base_template=base_template)
+
 
 @app.route('/workshop')
 def workshop():
@@ -119,13 +131,16 @@ def workshop():
     event_list = cursor.fetchall()
     return render_template('workshop.html', active_page='workshop', base_template=base_template, event_list=event_list)
 
+
 @app.route('/detail')
 def detail():
     return render_template('detail.html')
 
+
 @app.route('/daftar/')
 def daftar():
     return render_template('daftar.html')
+
 
 @app.route('/modal/')
 def modal():
@@ -133,6 +148,7 @@ def modal():
     cursor.execute('SELECT * FROM workshop')
     event_list = cursor.fetchall()
     return render_template('coba_modal.html', event_list=event_list)
+
 
 @app.route('/api/event/<int:event_id>')
 def get_event(event_id):
@@ -149,6 +165,7 @@ def get_event(event_id):
     finally:
         cursor.close()
 
+
 @app.route('/api/batik')
 def get_batik():
     try:
@@ -163,6 +180,7 @@ def get_batik():
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
 
+
 @app.route('/all/api/batik')
 def get_all_batik():
     try:
@@ -176,6 +194,7 @@ def get_all_batik():
         return jsonify({'error': 'Error decoding JSON'}), 500
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
+
 
 @app.route('/api/batik/<int:batik_id>')
 def get_batik_detail(batik_id):
@@ -194,6 +213,7 @@ def get_batik_detail(batik_id):
         return jsonify({'error': 'Error decoding JSON'}), 500
     except Exception as e:
         return jsonify({'error': 'Something went wrong'}), 500
+
 
 @app.route('/biodata/', methods=['GET', 'POST'])
 def biodata():
@@ -278,12 +298,14 @@ def login():
             msg = 'Username/password salah!'
     return render_template('login.html', msg=msg)
 
+
 @app.route('/logout_user')
 def logout_user():
     session.pop('username', None)
     session.pop('password', None)
     session.pop('loggedin', None)
     return redirect(url_for('login'))
+
 
 @app.route('/pesan', methods=['GET', 'POST'])
 def pesan():
@@ -299,8 +321,10 @@ def pesan():
     table = "INSERT INTO pesanan (username, nama_event, jumlah_tiket, total_harga) VALUES (%s, %s, %s, %s)"
 
     if insert_to_database(table, data):
-        message =  f"Ada Pesanan Baru:\nNama: {username}\nWorkshop: {paket}\nJumlah tiket: {jumlah_tiket}\nTotal Harga: {total_harga}"
-        background_thread = threading.Thread(target=send_telegram_message_sync, args=(telegram_chat_id, message))
+        message = f"Ada Pesanan Baru:\nNama: {username}\nWorkshop: {
+            paket}\nJumlah tiket: {jumlah_tiket}\nTotal Harga: {total_harga}"
+        background_thread = threading.Thread(
+            target=send_telegram_message_sync, args=(telegram_chat_id, message))
         background_thread.start()
         background_thread.join()
         return redirect(url_for('workshop'))
@@ -308,7 +332,7 @@ def pesan():
         return "Terjadi kesalahan saat memproses konsultasi", 500
 
 
-# admin 
+# admin
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -346,7 +370,8 @@ def logout_admin():
     # Hapus admin dari session
     session.pop('admin', None)
     return redirect('/admin_login')
-# end admin 
+# end admin
+
 
 @app.route('/admin')
 @login_required
@@ -354,7 +379,7 @@ def dashboard():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM workshop')
     event_list = cursor.fetchall()
-    
+
     cursor.execute('SELECT COUNT(*) FROM workshop')
     jml_workshop = cursor.fetchone()[0]
 
@@ -384,10 +409,6 @@ def hapus_event(id):
     cursor.execute('DELETE FROM workshop WHERE id = %s', (id,))
     conn.commit()
     return redirect('/admin')
-
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/add_workshop', methods=['GET', 'POST'])
@@ -443,6 +464,7 @@ def update_workshop():
     conn.commit()
     return redirect('/admin')
 
+
 @app.route('/update_telegram_api', methods=['POST'])
 @login_required
 def update_telegram_api():
@@ -455,11 +477,10 @@ def update_telegram_api():
                    (telegram_bot_token, telegram_chat_id))
     conn.commit()
     cursor.close()
-    
+
     flash('Telegram API settings updated successfully', 'success')
     return redirect('/admin')
 
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
