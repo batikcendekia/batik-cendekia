@@ -30,7 +30,7 @@ Anda juga dapat melihat detail dari batik tersebut dengan menekan nama batik dan
 
 <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/56954b2f-34c7-44e2-b7a1-2ea46842c04f" width="50%"> 
 
-Anda dapat menekan tombol "Hallo Guys" untuk melihat jenis batik yang belum ditampilkan
+Anda dapat menekan tombol "Selengkapnya" untuk melihat jenis batik yang belum ditampilkan
 
 <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/ea3489e9-ea8e-40fb-ae24-59d524cfae2e" width="100%"> 
 
