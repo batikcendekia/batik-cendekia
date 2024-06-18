@@ -31,10 +31,22 @@ Kemudian halaman akan mengantarkan anda untuk dapat melihat lebih banyak jenis j
 <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/34da8f01-e28a-4947-a2f6-34b8f4420706" width="100%"> 
 
 # <img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/cd55bfac-4712-41ba-9f87-757a90bb5cf4" width="50px"> Halaman Workshop
-Pada halaman ini anda dapat melihat alasan "Kenapa Belajar Batik", dan Kelas Workshop yang sedang tersedia
 
-<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/244b812d-b8f9-4c94-9c26-b22a6c73f339" width="100%"> 
+Pada halaman ini anda dapat melihat alasan "Kenapa Belajar Batik", dan kelas-kelas Workshop yang sedang tersedia
 
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/244b812d-b8f9-4c94-9c26-b22a6c73f339" width="80%"> 
+
+untuk melihat penjelasan lebih detail tentang workshop anda dapat menemukan tombol "Lihat Detail" yang terdapat pada poster workshop 
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/8c558b3d-3854-424a-b8f7-3376dd27a349" width="80%"> 
+
+Kemudian anda dapat menekan tombol tersebut dan akan muncul tampilan lebih detail mengenai workshop. Anda juga dapat secara langsung memesan tiket workshop dengan mengisi jumlah tiket dan klik tombol "Pesan Sekarang". 
+
+<img src="https://github.com/batikcendekia/batik-cendekia/assets/153000460/75139e3b-3bef-4fec-a2b5-7de66af20046" width="80%"> 
+
+setelah itu anda akan diantarkan 
+
+![deskripsi workshop](https://github.com/batikcendekia/batik-cendekia/assets/153000460/75139e3b-3bef-4fec-a2b5-7de66af20046)
 
 
 Pada tampilan login, isikan username dan password administrator SID. Pada instalasi awal, login administrator adalah sebagai berikut:
